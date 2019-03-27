@@ -9,7 +9,6 @@ SERVER_PORT = 9000
 sock=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((SERVER_IP, SERVER_PORT))
 
-sourceimg="./source/"
 namafile=["Bigchungus.jpg","Bluewill.png","Mafia.png"]
 
 def getRequest():
@@ -26,15 +25,14 @@ def setImage(ip,port):
   for x in namafile:
     time.sleep(5)
     kirim(x,addr)
-  sock.sendto("CLOSE".ljust(1024),addr)
+  sock.sendto("CLOSE",addr)
 
 def kirim(imgname,addr):
-  nama=os.path.join(sourceimg,imgname)
-  fp=open(nama,'rb')
+  fp=open(imgname,'rb')
   paket=fp.read()
   terkirim=0
   fp.close()
-  sock.sendto(("START "+imgname).ljust(1024),addr)
+  sock.sendto(("START "+imgname),addr)
   panjangpkt=len(paket)
   iterasi=(panjangpkt/1024)
   for i in range(iterasi+1):
@@ -42,13 +40,12 @@ def kirim(imgname,addr):
     if (i+1)*1024 > panjangpkt:
       data = paket[i*1024:panjangpkt]
       terkirim=terkirim+len(data)
-      data.ljust(1024)
     else:
       data=paket[i*1024:(i+1)*1024]
       terkirim=terkirim+len(data)
     sock.sendto(data,addr)
-    print "Mengirim "+str(terkirim)+" dari "+str(panjangpkt)+" ke "+str(addr[0])+":"+str(addr[1])
-  sock.sendto(("END "+imgname).ljust(1024),addr)
+    print "Mengirim "+str(terkirim)+" dari "+str(panjangpkt)
+  sock.sendto(("END "+imgname),addr)
 
 while True:
   getRequest()

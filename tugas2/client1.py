@@ -18,7 +18,6 @@ while True:
     nama=os.path.join(folder,namafile)
     fp=open(nama,'wb+')
     ditulis=0
-    print "Menerima "+namafile
   elif data[:3]=="END":
     print namafile+" berhasil diterima"
     fp.close()
