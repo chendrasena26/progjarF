@@ -36,7 +36,7 @@ class Server():
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.bind(self.socketbind)
         self.clientList = []
-        self.imagelist = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"]
+        self.imagelist = ["1.jpg"]
         for a in self.imagelist:
            self.count = 0
         
